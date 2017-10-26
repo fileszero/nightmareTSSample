@@ -1,0 +1,23 @@
+{
+  "name": "nightmaretssample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "jest": "jest",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/assert": "0.0.31",
+    "@types/jest": "^21.1.2",
+    "@types/node": "^8.0.31",
+    "jest": "^21.2.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {}
+}
