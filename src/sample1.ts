@@ -1,11 +1,16 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
+import * as log4js from "log4js";
+import * as config from "config";
 
 const nm = new Nightmare({
     show: true,
     typeInterval: 20,
     timeout: 1000 // in ms
 });
+log4js.configure(config.get("log4js.configure"));
+const logger = log4js.getLogger();
+logger.level = "debug"; // don't show trace message
 
 /**
  * wait ms
@@ -33,15 +38,15 @@ async function main() {
 
             const $ = cheerio.load(body);
             const first_site = $("#r1-0 a.result__a").text();
-            console.log(search_str + " >> " + first_site);
+            logger.info(search_str + " >> " + first_site);
             await delay(5000);
         }
     } catch (error) {
-        console.error("Search failed:", error);
+        logger.error("Search failed:", error);
     }
     await nm.end();
 }
 
 main().then(() => {
-    console.log("Done");
+    logger.info("Done");
 });
