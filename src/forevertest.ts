@@ -14,6 +14,7 @@ logger.level = "debug"; // don't show trace message
  * wait ms
  */
 function delay(ms: number): Promise<void> {
+    logger.debug("delay " + ms + " ms");
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function main() {
