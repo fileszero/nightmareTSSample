@@ -6,7 +6,8 @@
   "scripts": {
     "jest": "jest",
     "build-ts": "tsc",
-    "watch-ts": "tsc -w"
+    "watch-ts": "tsc -w",
+    "sample1-on-cli": "xvfb-run node ./dest/src/sample1.js"
   },
   "keywords": [],
   "author": "",
