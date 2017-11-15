@@ -17,9 +17,7 @@ const opt: IConstructorOptionsEx = {
     }
 };
 
-const nm = new Nightmare(
-    opt
-);
+const nm = new Nightmare(opt);
 log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
 logger.level = "debug"; // don't show trace message
@@ -33,14 +31,10 @@ function delay(ms: number): Promise<void> {
 async function main() {
     try {
         while (true) {
-            const now = new Date();
-            const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
             const body = await nm
-                .goto("https://duckduckgo.com")
-                .wait("#search_form_input_homepage")
-                .type("#search_form_input_homepage", search_str)
-                .click("#search_button_homepage")
-                .wait("#r1-0")
+                .goto("http://10.0.2.2:8000/staticsample.html")    // 10.0.2.2 = vagrant host PC
+                .wait("#linktome")
+                .click("#linktome")
                 .evaluate((): string => {
                     return document.getElementsByTagName("body")[0].outerHTML;
                 })
@@ -49,8 +43,8 @@ async function main() {
                 });
 
             const $ = cheerio.load(body);
-            const first_site = $("#r1-0 a.result__a").text();
-            logger.info(search_str + " >> " + first_site);
+            const now = $("#now").text();
+            logger.info(now);
             await delay(5000);
         }
     } catch (error) {

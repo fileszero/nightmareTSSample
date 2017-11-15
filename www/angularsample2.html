@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+</head>
+
+<body ng-controller="ctrl">
+    <div>
+        Random=<span id='val'>{{val}}</span><br>
+        Hint:<span id='hint'>{{hint}}</span><br>
+        <input id="expect" type="text" ng-model="expectNum"/><input type="button" ng-click="doExpect()" value="expect!" id="doExpect"/><br>
+        you guessed <span id='times'>{{challenge}}</span> times.
+    </div>
+</body>
+<script>
+    var app = angular.module("app", []);
+
+    app.controller("ctrl", function ($scope, $interval) {
+        var min = 1 ,max = 100 ;
+        $scope.val = Math.floor( Math.random() * (max + 1 - min) ) + min ;
+        $scope.challenge=0;
+        $scope.doExpect=function(){
+            $scope.hint="";
+            var num=parseInt($scope.expectNum, 10);
+            if(!isNaN(num)){
+                $scope.challenge++;
+                if(num==$scope.val){
+                    $scope.hint="correct!";
+                } else if(num<$scope.val){
+                    $scope.hint="low";
+                } else {
+                    $scope.hint="high";
+                }
+            }
+        };
+    });
+</script>
+
+</html>
