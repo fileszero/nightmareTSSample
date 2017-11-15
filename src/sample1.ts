@@ -3,12 +3,29 @@ import * as cheerio from "cheerio";
 import * as log4js from "log4js";
 import * as config from "config";
 
-const nm = new Nightmare({
+interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
+    switches?: object;
+}
+const opt: IConstructorOptionsEx = {
     show: true,
     typeInterval: 20,
     timeout: 1000 // in ms
-    , ignoreSslErrors: true
-});
+    , ignoreSslErrors: true,
+    switches: {
+        // https://github.com/segmentio/nightmare/issues/993
+        "ignore-certificate-errors": true
+    }
+};
+
+const nm = new Nightmare(
+    opt
+    // {
+    // show: true,
+    // typeInterval: 20,
+    // timeout: 1000 // in ms
+    // , ignoreSslErrors: true
+    // }
+);
 log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
 logger.level = "debug"; // don't show trace message
