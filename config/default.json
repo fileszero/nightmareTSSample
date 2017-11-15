@@ -1,0 +1,19 @@
+{
+    "log4js": {
+        "configure": {
+            "appenders": {
+                "console": {
+                    "type": "console"
+                } // コンソールに出力
+            },
+            "categories": {
+                "default": {
+                    "appenders": [
+                        "console"
+                    ],
+                    "level": "all"
+                } // defaultはとにかく出力する設定にする
+            }
+        }
+    }
+}
