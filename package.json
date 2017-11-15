@@ -7,7 +7,8 @@
     "jest": "jest",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "sample1-on-cli": "xvfb-run node ./dest/src/sample1.js"
+    "sample1-on-cli": "xvfb-run node ./dest/src/sample1.js",
+    "forevertest": "npm run build-ts & forever start ./dest/src/forevertest.js"
   },
   "keywords": [],
   "author": "",
