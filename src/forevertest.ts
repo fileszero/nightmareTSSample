@@ -1,5 +1,6 @@
 import * as log4js from "log4js";
 import * as config from "config";
+import { loadavg } from "os";
 
 // please install forever
 // > npm install forever -g
@@ -10,6 +11,7 @@ log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
 logger.level = "debug"; // don't show trace message
 
+logger.debug("process.env.NODE_ENV = " + process.env.NODE_ENV);
 /**
  * wait ms
  */
