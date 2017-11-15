@@ -12,6 +12,18 @@ log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
 logger.level = "debug"; // don't show trace message
 
+// allow the certificate with the certificate-error event
+// https://electron.atom.io/docs/api/app/#event-certificate-error
+nm.on("certificate-error", (event: any, webContents: any, url: any, error: any, certificate: any, callback: any) => {
+    if (url === "https://duckduckgo.com") {
+        // Verification logic.
+        event.preventDefault();
+        callback(true);
+    } else {
+        callback(false);
+    }
+});
+
 /**
  * wait ms
  */
