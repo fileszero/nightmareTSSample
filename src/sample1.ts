@@ -17,9 +17,7 @@ const opt: IConstructorOptionsEx = {
     }
 };
 
-const nm = new Nightmare(
-    opt
-);
+const nm = new Nightmare(opt);
 log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
 logger.level = "debug"; // don't show trace message

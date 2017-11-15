@@ -3,6 +3,8 @@ import * as cheerio from "cheerio";
 import * as log4js from "log4js";
 import * as config from "config";
 
+// nohup xvfb-run forever ./dest/src/sample2.js &
+
 interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
     switches?: object;
 }
