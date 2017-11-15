@@ -14,7 +14,9 @@
   "devDependencies": {
     "@types/assert": "0.0.31",
     "@types/cheerio": "^0.22.5",
+    "@types/config": "0.0.33",
     "@types/jest": "^21.1.2",
+    "@types/log4js": "^2.3.5",
     "@types/nightmare": "^1.6.36",
     "@types/node": "^8.0.31",
     "jest": "^21.2.1",
@@ -23,6 +25,8 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "config": "^1.28.1",
+    "log4js": "^2.3.12",
     "nightmare": "^2.10.0"
   }
 }
