@@ -19,6 +19,8 @@ logger.level = "debug"; // don't show trace message
 function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+
 async function main() {
     try {
         const nms: Nightmare[] = [];
@@ -57,12 +59,14 @@ async function main() {
                 const now = $("#now").text();
                 logger.info(now);
                 await delay(5000);
+                // await nm.end();
             }
         }
+
+
     } catch (error) {
         logger.error("Search failed:", error);
     }
-    await nm.end();
 }
 
 main().then(() => {

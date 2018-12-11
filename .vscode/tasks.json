@@ -5,7 +5,7 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "watch-ts",
+            "script": "build",
             "isBackground": true,
             "presentation": {
                 "echo": true,
@@ -18,6 +18,13 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "type": "npm",
+            "script": "build-w",
+            "problemMatcher": [
+                "$tsc"
+            ]
         }
     ]
 }
