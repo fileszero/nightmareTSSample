@@ -1,0 +1,21 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    volumes:
+      - ./vol/docker/mariadb:/docker-entrypoint-initdb.d/
+      - ./vol/var/mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nmtest
+      MYSQL_USER: nmuser
+      MYSQL_PASSWORD: test
+    ports:
+      - "3306:3306"
+    command:
+      # https://github.com/docker-library/mariadb/issues/95#issuecomment-410993934
+      'mysqld --innodb-flush-method=fsync'

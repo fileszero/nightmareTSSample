@@ -62,3 +62,4 @@ typings/
 /config/development.json
 /config/production.json
 /package-lock.json
+/docker/vol/
