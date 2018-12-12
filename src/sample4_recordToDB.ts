@@ -7,6 +7,7 @@ import * as mysql from "promise-mysql";
 
 import { link } from "fs";
 import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from "constants";
+import { handleLogin } from "./loginHandler";
 
 /* record search result to DB */
 
@@ -54,6 +55,8 @@ async function main() {
             try {
                 await nm.wait("#search_form_input_homepage");
             } catch (timeout) {
+                nm.screenshot("./logs/timeout.png");
+                await handleLogin(nm);
                 continue;
             }
             const body = await nm

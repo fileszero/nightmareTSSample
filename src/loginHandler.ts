@@ -40,6 +40,7 @@ export async function handleLogin(nm: Nightmare) {
         if (logininfo.wait) {
             await nm.wait(logininfo.wait);
         }
+        await nm.wait(500);
         await nm.screenshot("./logs/handleLogin_020.png");
 
     }
