@@ -34,10 +34,14 @@ RUN npm install nightmare
 
 RUN mkdir -p /workspace
 WORKDIR /workspace
-RUN mkdir ./tmp
-# ADD package.json .
+RUN mkdir ./tmp \
+    mkdir ./app
 
-# RUN npm install
+WORKDIR /workspace/app
+
+ADD package.json .
+
+RUN npm install
 
 # COPY entrypoint.sh /entrypoint
 # RUN chmod +x /entrypoint
