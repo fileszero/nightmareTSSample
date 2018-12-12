@@ -28,7 +28,7 @@ services:
     working_dir: /workspace/app
     volumes:
       - ../:/workspace/app
-      - /workspace/app/node_modules # コンテナ内のnode_moduleをvolumesに登録
+      - /workspace/app/node_modules # コンテナ内のnode_moduleをvolumesに登録 https://shotat.hateblo.jp/entry/2016/12/01/221631
       - ./nightmare/:/workspace/bin
     # command: ls -la /workspace/bin
     ports:
