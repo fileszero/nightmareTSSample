@@ -7,7 +7,7 @@ interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
     switches?: object;
 }
 const opt: IConstructorOptionsEx = {
-    show: true,
+    show: false,
     typeInterval: 20,
     timeout: 1000 // in ms
     , ignoreSslErrors: true,
@@ -20,7 +20,9 @@ const opt: IConstructorOptionsEx = {
 const nm = new Nightmare(opt);
 log4js.configure(config.get("log4js.configure"));
 const logger = log4js.getLogger();
+logger.info("Start Logging");
 logger.level = "debug"; // don't show trace message
+logger.info("Logging level is Debug");
 
 /**
  * wait ms
@@ -30,7 +32,10 @@ function delay(ms: number): Promise<void> {
 }
 async function main() {
     try {
+        logger.info("Start main loop");
         while (true) {
+
+            logger.info("loop");
             const now = new Date();
             const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
             const body = await nm
@@ -53,6 +58,7 @@ async function main() {
         }
     } catch (error) {
         logger.error("Search failed:", error);
+        nm.screenshot("./logs/error.png");
     }
     await nm.end();
 }

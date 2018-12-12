@@ -40,7 +40,7 @@ function delay(ms: number): Promise<void> {
 async function main() {
     try {
         const connection = await mysql.createConnection({
-            host: "localhost",
+            host: "db", // docker service name or "localhost",
             user: "root",
             database: "nmtest",
             password: "root"
