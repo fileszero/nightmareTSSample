@@ -2,6 +2,7 @@ import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
 import * as log4js from "log4js";
 import * as config from "config";
+import { handleLogin } from "./loginHandler";
 
 interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
     switches?: object;
@@ -31,9 +32,9 @@ function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function main() {
-    try {
-        logger.info("Start main loop");
-        while (true) {
+    logger.info("Start main loop");
+    while (true) {
+        try {
 
             logger.info("loop");
             const now = new Date();
@@ -55,10 +56,11 @@ async function main() {
             const first_site = $("#r1-0 a.result__a").text();
             logger.info(search_str + " >> " + first_site);
             await delay(5000);
+        } catch (error) {
+            logger.error("Search failed:", error);
+            nm.screenshot("./logs/error.png");
+            await handleLogin(nm);
         }
-    } catch (error) {
-        logger.error("Search failed:", error);
-        nm.screenshot("./logs/error.png");
     }
     await nm.end();
 }
