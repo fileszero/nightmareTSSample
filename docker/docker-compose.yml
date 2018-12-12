@@ -33,4 +33,4 @@ services:
     # command: ls -la /workspace/bin
     ports:
       - 5858:5858
-    command: /workspace/bin/entrypoint.sh node ./dest/src/sample4_recordToDB.js # "--inspect=0.0.0.0:5858",
+    command: /workspace/bin/entrypoint.sh node --inspect=0.0.0.0:5858 ./dest/src/sample4_recordToDB.js

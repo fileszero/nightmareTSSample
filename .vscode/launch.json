@@ -5,7 +5,10 @@
             "type": "node",
             "request": "attach",
             "name": "Attach",
-            "port": 5858
+            "port": 5858,
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/workspace/app",
+            "protocol": "inspector",
         },
         {
             "type": "node",
