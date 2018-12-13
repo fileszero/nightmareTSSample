@@ -41,14 +41,7 @@ async function main() {
         while (true) {
             const now = new Date();
             const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            await nm.goto("https://start.duckduckgo.com/");
-            try {
-                await nm.wait("#search_form_input_homepage");
-            } catch (timeout) {
-                nm.screenshot("./logs/timeout.png");
-                await nmutil.handleLogin(nm);
-                continue;
-            }
+            await nmutil.gotoUrl(nm, "https://start.duckduckgo.com/", "#search_form_input_homepage");
             const body = await nm
                 .type("#search_form_input_homepage", search_str)
                 .click("#search_button_homepage")
@@ -60,6 +53,7 @@ async function main() {
                     return body;
                 });
 
+            logger.debug(body);
             const $ = cheerio.load(body);
             const results = $("div.result");
             await results.each(async (i, elem) => {
@@ -77,13 +71,15 @@ async function main() {
             await delay(5000);
         }
     } catch (error) {
-        logger.error("Search failed:", error);
+        nm.screenshot("./logs/Searchfailed.png");
+        logger.error("Search failed:" + JSON.stringify(error), error);
     }
     await nm.end();
 }
 
 main().then(() => {
     logger.info("Done");
+    process.exit();
 });
 
 /*

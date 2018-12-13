@@ -15,8 +15,8 @@ declare class Nightmare {
     // Interact
     end(): Nightmare;
     //Nightmare.prototype.then = function(fulfill, reject) {
-    then<R>(fn: (value: any) => R): Promise<R>;
-    //then<T1, R>(fn: (value: T1) => R): Promise<R>;
+    //then<R>(fn: (value: any) => R): Promise<R>;
+    then<T1, R>(fn: (value: T1) => R): Promise<R>;
     //then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     halt(error: string, cb: () => void): Nightmare;

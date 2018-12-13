@@ -44,7 +44,7 @@ async function main() {
             const $ = cheerio.load(body);
             const first_site = $("#r1-0 a.result__a").text();
             logger.info(search_str + " >> " + first_site);
-            await delay(5000);
+            await delay(1000);
         } catch (error) {
             logger.error("Search failed:", error);
             nm.screenshot("./logs/error.png");
