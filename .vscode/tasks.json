@@ -5,6 +5,17 @@
     "tasks": [
         {
             "type": "npm",
+            "script": "build-w",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "npm",
             "script": "build",
             "isBackground": true,
             "presentation": {
@@ -14,17 +25,6 @@
                 "panel": "shared"
             },
             "problemMatcher": "$tsc-watch",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
         },
-        {
-            "type": "npm",
-            "script": "build-w",
-            "problemMatcher": [
-                "$tsc"
-            ]
-        }
     ]
 }
