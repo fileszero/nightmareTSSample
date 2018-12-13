@@ -30,7 +30,7 @@ async function main() {
             logger.info("loop");
             const now = new Date();
             const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            const nm2 = await nmutil.gotoUrl(nm, "https://duckduckgo.com", "#search_form_input_homepage");
+            await nmutil.gotoUrl(nm, "https://duckduckgo.com", "#search_form_input_homepage");
             const body = await nm.type("#search_form_input_homepage", search_str)
                 .click("#search_button_homepage")
                 .wait("#r1-0")

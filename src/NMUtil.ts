@@ -5,7 +5,7 @@ import { logger } from "./logger";
 
 const loginInfos: any[] = config.get("login");
 
-export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5): Promise<Nightmare> {
+export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5): Promise<void> {
     let retried = 0;
     while (true) {
         await nm.goto(url);
@@ -13,6 +13,7 @@ export async function gotoUrl(nm: Nightmare, url: string, wait: string | number,
             await nm.wait(wait);
             break;
         } catch (timeout) {
+            logger.debug("retry to gotoUrl [" + url + "] error:" + JSON.stringify(timeout));
             nm.screenshot("./logs/timeout.png");
             await handleLogin(nm);
             if (retried > retry) {
@@ -22,7 +23,7 @@ export async function gotoUrl(nm: Nightmare, url: string, wait: string | number,
             continue;
         }
     }
-    return nm;
+    return;
 }
 
 export async function handleLogin(nm: Nightmare): Promise<boolean> {
