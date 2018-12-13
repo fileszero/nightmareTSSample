@@ -43,8 +43,8 @@ ADD package.json .
 
 RUN npm install
 
-# COPY entrypoint.sh /entrypoint
-# RUN chmod +x /entrypoint
+COPY entrypoint.sh /entrypoint
+RUN chmod +x /entrypoint
 
 # ENTRYPOINT ["/entrypoint", "node"]
 # CMD ["index.js"]
