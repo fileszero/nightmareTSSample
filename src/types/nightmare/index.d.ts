@@ -11,6 +11,7 @@
 declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
 
+    readonly options: Nightmare.IConstructorOptions;
     // Interact
     end(): Nightmare;
     //Nightmare.prototype.then = function(fulfill, reject) {
@@ -52,8 +53,7 @@ declare class Nightmare {
     wait<T1>(fn: (arg1: T1) => any, value1: T1): Nightmare;
     wait(fn: () => any, value: any, delay?: number): Nightmare;
     wait(fn: () => any): Nightmare;
-    wait(ms: number): Nightmare;
-    wait(selector: string): Nightmare;
+    wait(ms: string | number): Nightmare;
     wait(): Nightmare;
     header(header: string, value: string): Nightmare;
     use(plugin: (nightmare: Nightmare) => void): Nightmare;
@@ -133,16 +133,17 @@ declare class Nightmare {
     zoom(zoomFactor: number): Nightmare;
     headers(headers: Object): Nightmare;
 
-    /**
-     * Static: Support attaching custom actions
-     *
-     * @param {String} name - method name
-     * @param {Function|Object} [childfn] - Electron implementation
-     * @param {Function|Object} parentfn - Nightmare implementation
-     * @return {Nightmare}
-     */
-    static action(name: string, fn: Function | Object, fn2?: Function | Object): Nightmare;
+    // /**
+    //  * Static: Support attaching custom actions
+    //  *
+    //  * @param {String} name - method name
+    //  * @param {Function|Object} [childfn] - Electron implementation
+    //  * @param {Function|Object} parentfn - Nightmare implementation
+    //  * @return {Nightmare}
+    //  */
+    // static action(name: string, fn: Function | Object, fn2?: Function | Object): Nightmare;
 
+    // // define by action;
 }
 
 declare namespace Nightmare {

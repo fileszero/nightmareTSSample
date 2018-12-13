@@ -5,6 +5,26 @@ import { logger } from "./logger";
 
 const loginInfos: any[] = config.get("login");
 
+export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5): Promise<Nightmare> {
+    let retried = 0;
+    while (true) {
+        await nm.goto(url);
+        try {
+            await nm.wait(wait);
+            break;
+        } catch (timeout) {
+            nm.screenshot("./logs/timeout.png");
+            await handleLogin(nm);
+            if (retried > retry) {
+                throw new Error("gotoUrl timeout");
+            }
+            retried++;
+            continue;
+        }
+    }
+    return nm;
+}
+
 export async function handleLogin(nm: Nightmare): Promise<boolean> {
     try {
         const url = await nm.url();

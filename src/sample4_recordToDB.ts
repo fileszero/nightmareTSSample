@@ -3,7 +3,7 @@ import * as cheerio from "cheerio";
 
 import * as mysql from "promise-mysql";
 
-import { handleLogin } from "./loginHandler";
+import * as nmutil from "./NMUtil";
 import { logger } from "./logger";
 
 /* record search result to DB */
@@ -46,7 +46,7 @@ async function main() {
                 await nm.wait("#search_form_input_homepage");
             } catch (timeout) {
                 nm.screenshot("./logs/timeout.png");
-                await handleLogin(nm);
+                await nmutil.handleLogin(nm);
                 continue;
             }
             const body = await nm

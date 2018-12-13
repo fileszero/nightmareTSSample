@@ -1,10 +1,10 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
 import { logger } from "./logger";
-import { handleLogin } from "./loginHandler";
+import * as nmutil from "./NMUtil";
 
 const opt: Nightmare.IConstructorOptions = {
-    show: false,
+    show: true,
     typeInterval: 20,
     timeout: 1000 // in ms
     , ignoreSslErrors: true,
@@ -30,10 +30,8 @@ async function main() {
             logger.info("loop");
             const now = new Date();
             const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            const body = await nm
-                .goto("https://duckduckgo.com")
-                .wait("#search_form_input_homepage")
-                .type("#search_form_input_homepage", search_str)
+            const nm2 = await nmutil.gotoUrl(nm, "https://duckduckgo.com", "#search_form_input_homepage");
+            const body = await nm.type("#search_form_input_homepage", search_str)
                 .click("#search_button_homepage")
                 .wait("#r1-0")
                 .evaluate((): string => {
@@ -50,7 +48,7 @@ async function main() {
         } catch (error) {
             logger.error("Search failed:", error);
             nm.screenshot("./logs/error.png");
-            await handleLogin(nm);
+            await nmutil.handleLogin(nm);
         }
     }
     await nm.end();
