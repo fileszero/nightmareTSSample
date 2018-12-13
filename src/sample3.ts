@@ -4,10 +4,6 @@ import { logger } from "./logger";
 
 // nohup xvfb-run forever ./dest/src/sample2.js &
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-
 /**
  * wait ms
  */
@@ -20,7 +16,7 @@ async function main() {
     try {
         const nms: Nightmare[] = [];
         for (let i = 0; i < 10; i++) {
-            const opt: IConstructorOptionsEx = {
+            const opt: Nightmare.IConstructorOptions = {
                 show: true,
                 typeInterval: 20,
                 timeout: 1000 // in ms

@@ -3,10 +3,7 @@ import * as cheerio from "cheerio";
 import { logger } from "./logger";
 import { handleLogin } from "./loginHandler";
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-const opt: IConstructorOptionsEx = {
+const opt: Nightmare.IConstructorOptions = {
     show: false,
     typeInterval: 20,
     timeout: 1000 // in ms

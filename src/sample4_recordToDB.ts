@@ -8,11 +8,7 @@ import { logger } from "./logger";
 
 /* record search result to DB */
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-    waitTimeout?: number;
-}
-const opt: IConstructorOptionsEx = {
+const opt: Nightmare.IConstructorOptions = {
     show: true,
     typeInterval: 20,
     timeout: 1000 * 5, // in ms

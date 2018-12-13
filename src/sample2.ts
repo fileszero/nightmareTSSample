@@ -4,10 +4,7 @@ import { logger } from "./logger";
 
 // nohup xvfb-run forever ./dest/src/sample2.js &
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-const opt: IConstructorOptionsEx = {
+const opt: Nightmare.IConstructorOptions = {
     show: true,
     typeInterval: 20,
     timeout: 1000 // in ms

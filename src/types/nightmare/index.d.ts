@@ -181,6 +181,7 @@ declare namespace Nightmare {
              */
             mode?: string;
         };
+        switches?: Object;
     }
 
     export interface IRequest {
