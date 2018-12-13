@@ -1,13 +1,10 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
-import * as log4js from "log4js";
-import * as config from "config";
 
 import * as mysql from "promise-mysql";
 
-import { link } from "fs";
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from "constants";
 import { handleLogin } from "./loginHandler";
+import { logger } from "./logger";
 
 /* record search result to DB */
 
@@ -19,7 +16,7 @@ const opt: IConstructorOptionsEx = {
     show: true,
     typeInterval: 20,
     timeout: 1000 * 5, // in ms
-    waitTimeout: 1000 * 20 // in ms
+    waitTimeout: 1000 * 5 // in ms
     , ignoreSslErrors: true,
     switches: {
         // https://github.com/segmentio/nightmare/issues/993
@@ -28,9 +25,6 @@ const opt: IConstructorOptionsEx = {
 };
 
 const nm = new Nightmare(opt);
-log4js.configure(config.get("log4js.configure"));
-const logger = log4js.getLogger();
-logger.level = "debug"; // don't show trace message
 
 /**
  * wait ms

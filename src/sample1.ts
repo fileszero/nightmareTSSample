@@ -1,7 +1,6 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
-import * as log4js from "log4js";
-import * as config from "config";
+import { logger } from "./logger";
 import { handleLogin } from "./loginHandler";
 
 interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
@@ -19,11 +18,6 @@ const opt: IConstructorOptionsEx = {
 };
 
 const nm = new Nightmare(opt);
-log4js.configure(config.get("log4js.configure"));
-const logger = log4js.getLogger();
-logger.info("Start Logging");
-logger.level = "debug"; // don't show trace message
-logger.info("Logging level is Debug");
 
 /**
  * wait ms
