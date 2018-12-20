@@ -1,5 +1,6 @@
 # Logs
-logs
+logs/*
+!logs/readme.md
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -63,3 +64,4 @@ typings/
 /config/production.json
 /package-lock.json
 /docker/vol/
+
