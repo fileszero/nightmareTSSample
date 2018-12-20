@@ -5,6 +5,19 @@ import { logger } from "./logger";
 
 const loginInfos: any[] = config.get("login");
 
+export async function getBody(nm: Nightmare): Promise<string> {
+    const body = await nm
+        .wait("body")
+        .evaluate((): string => {
+            return document.getElementsByTagName("body")[0].outerHTML;
+        })
+        .then((body: string) => {
+            return body;
+        });
+    return body;
+
+}
+
 export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5): Promise<void> {
     let retried = 0;
     while (true) {

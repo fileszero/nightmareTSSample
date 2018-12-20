@@ -183,6 +183,7 @@ declare namespace Nightmare {
             mode?: string;
         };
         switches?: Object;
+        alwaysOnTop?: boolean;
     }
 
     export interface IRequest {
