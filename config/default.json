@@ -15,5 +15,14 @@
                 } // defaultはとにかく出力する設定にする
             }
         }
-    }
+    },
+    "login": [
+        {
+            "url": "https://some.login.page/login/",
+            "submit": "#submit_selector",
+            "wait": 10000,
+            "#username_field_selector": "im_a_user",
+            "#passwd_field_selector": "this_is_a_password"
+        }
+    ]
 }

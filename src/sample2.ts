@@ -1,14 +1,10 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
-import * as log4js from "log4js";
-import * as config from "config";
+import { logger } from "./logger";
 
 // nohup xvfb-run forever ./dest/src/sample2.js &
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-const opt: IConstructorOptionsEx = {
+const opt: Nightmare.IConstructorOptions = {
     show: true,
     typeInterval: 20,
     timeout: 1000 // in ms
@@ -20,9 +16,6 @@ const opt: IConstructorOptionsEx = {
 };
 
 const nm = new Nightmare(opt);
-log4js.configure(config.get("log4js.configure"));
-const logger = log4js.getLogger();
-logger.level = "debug"; // don't show trace message
 
 /**
  * wait ms

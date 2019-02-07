@@ -1,0 +1,35 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    volumes:
+      - ./vol/docker/mariadb:/docker-entrypoint-initdb.d/
+      - ./vol/var/mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nmtest
+      MYSQL_USER: nmuser
+      MYSQL_PASSWORD: test
+    ports:
+      - "3306:3306"
+    command:
+      # https://github.com/docker-library/mariadb/issues/95#issuecomment-410993934
+      'mysqld --innodb-flush-method=fsync'
+  nightmare:
+    links:
+      - db
+    # https://qiita.com/TsutomuNakamura/items/7e90e5efb36601c5bc8a
+    build: ./nightmare
+    container_name: docker-nightmare
+    working_dir: /workspace/app
+    volumes:
+      - ../:/workspace/app
+      - /workspace/app/node_modules # コンテナ内のnode_moduleをvolumesに登録 https://shotat.hateblo.jp/entry/2016/12/01/221631
+    # command: ls -la /workspace/bin
+    ports:
+      - 5858:5858
+    command: /entrypoint node --inspect=0.0.0.0:5858 ./dest/src/sample4_recordToDB.js

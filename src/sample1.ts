@@ -1,12 +1,9 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
-import * as log4js from "log4js";
-import * as config from "config";
+import { logger } from "./logger";
+import * as nmutil from "./NMUtil";
 
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-const opt: IConstructorOptionsEx = {
+const opt: Nightmare.IConstructorOptions = {
     show: true,
     typeInterval: 20,
     timeout: 1000 // in ms
@@ -18,9 +15,6 @@ const opt: IConstructorOptionsEx = {
 };
 
 const nm = new Nightmare(opt);
-log4js.configure(config.get("log4js.configure"));
-const logger = log4js.getLogger();
-logger.level = "debug"; // don't show trace message
 
 /**
  * wait ms
@@ -29,14 +23,15 @@ function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function main() {
-    try {
-        while (true) {
+    logger.info("Start main loop");
+    while (true) {
+        try {
+
+            logger.info("loop");
             const now = new Date();
             const search_str = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            const body = await nm
-                .goto("https://duckduckgo.com")
-                .wait("#search_form_input_homepage")
-                .type("#search_form_input_homepage", search_str)
+            await nmutil.gotoUrl(nm, "https://duckduckgo.com", "#search_form_input_homepage");
+            const body = await nm.type("#search_form_input_homepage", search_str)
                 .click("#search_button_homepage")
                 .wait("#r1-0")
                 .evaluate((): string => {
@@ -49,10 +44,12 @@ async function main() {
             const $ = cheerio.load(body);
             const first_site = $("#r1-0 a.result__a").text();
             logger.info(search_str + " >> " + first_site);
-            await delay(5000);
+            await delay(1000);
+        } catch (error) {
+            logger.error("Search failed:", error);
+            nm.screenshot("./logs/error.png");
+            await nmutil.handleLogin(nm);
         }
-    } catch (error) {
-        logger.error("Search failed:", error);
     }
     await nm.end();
 }

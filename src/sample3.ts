@@ -1,17 +1,8 @@
 import * as Nightmare from "nightmare";
 import * as cheerio from "cheerio";
-import * as log4js from "log4js";
-import * as config from "config";
+import { logger } from "./logger";
 
 // nohup xvfb-run forever ./dest/src/sample2.js &
-
-interface IConstructorOptionsEx extends Nightmare.IConstructorOptions {
-    switches?: object;
-}
-
-log4js.configure(config.get("log4js.configure"));
-const logger = log4js.getLogger();
-logger.level = "debug"; // don't show trace message
 
 /**
  * wait ms
@@ -19,11 +10,13 @@ logger.level = "debug"; // don't show trace message
 function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+
 async function main() {
     try {
         const nms: Nightmare[] = [];
         for (let i = 0; i < 10; i++) {
-            const opt: IConstructorOptionsEx = {
+            const opt: Nightmare.IConstructorOptions = {
                 show: true,
                 typeInterval: 20,
                 timeout: 1000 // in ms
@@ -57,12 +50,14 @@ async function main() {
                 const now = $("#now").text();
                 logger.info(now);
                 await delay(5000);
+                // await nm.end();
             }
         }
+
+
     } catch (error) {
         logger.error("Search failed:", error);
     }
-    await nm.end();
 }
 
 main().then(() => {
