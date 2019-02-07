@@ -19,6 +19,10 @@ declare class Nightmare {
     then<T1, R>(fn: (value: T1) => R): Promise<R>;
     //then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
+
+    // custom actions
+    populate(selector: string, text: string): Nightmare;
+
     halt(error: string, cb: () => void): Nightmare;
     goto(url: string): Nightmare;
     goto(url: string, headers: Object): Nightmare;
@@ -184,6 +188,7 @@ declare namespace Nightmare {
         };
         switches?: Object;
         alwaysOnTop?: boolean;
+        enableLargerThanScreen?: boolean;
     }
 
     export interface IRequest {
