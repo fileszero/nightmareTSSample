@@ -18,21 +18,25 @@ export async function getBody(nm: Nightmare): Promise<string> {
 
 }
 
-export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5): Promise<void> {
+export async function gotoUrl(nm: Nightmare, url: string, wait: string | number, retry: number = 5, retryUrl?: (url: string) => string): Promise<void> {
     let retried = 0;
+    let target_url = url;
     while (true) {
-        await nm.goto(url);
+        await nm.goto(target_url);
         try {
             await nm.wait(wait);
             break;
         } catch (timeout) {
-            logger.debug("retry to gotoUrl [" + url + "] error:" + JSON.stringify(timeout));
+            logger.debug("retry to gotoUrl [" + target_url + "] error:" + JSON.stringify(timeout));
             nm.screenshot("./logs/timeout.png");
             await handleLogin(nm);
             if (retried > retry) {
                 throw new Error("gotoUrl timeout");
             }
             retried++;
+            if (retryUrl) {
+                target_url = retryUrl(url);
+            }
             continue;
         }
     }
